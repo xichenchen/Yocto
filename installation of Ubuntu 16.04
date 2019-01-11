@@ -10,7 +10,7 @@
         Acquire::https::proxy "https://rb-proxy-szh.bosch.com:8080/";
         Acquire::http::proxy "http://rb-proxy-szh.bosch.com:8080/";
         注意不要忘记分号
-5.使用图新界面打开/etc/apt中的sources.list会弹出设置界面，在其中Ubuntu software便签下选择更新源为aliyun或huaweicloud
+5.使用图形界面打开/etc/apt中的sources.list会弹出设置界面，在其中Ubuntu software便签下选择更新源为aliyun或huaweicloud
 6.终端中输入 sudo apt-get update 更新软件列表，若显示网络错误，可重新打开终端再试
 
 
