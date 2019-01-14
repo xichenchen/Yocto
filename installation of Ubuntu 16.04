@@ -21,7 +21,7 @@ Ubuntu基础环境的配置：
 以上为Ubuntu基础环境的配置
 
 Yocto相关环境的建立：
-参考文档：《i.MX_Yocto_Project_User's_Guide》，注意其中的版本描述，是针对哪一个yocto版本已经linux内核
+参考文档：《i.MX_Yocto_Project_User's_Guide》，注意其中的版本描述，是针对哪一个yocto版本以及linux内核
 本文使用的《i.MX_Yocto_Project_User's_Guide》是针对yocto 2.5和linux内核版本L4.14.78
 
 1.安装必要的软件包，可直接参考《i.MX_Yocto_Project_User's_Guide》的3.1节
