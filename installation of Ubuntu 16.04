@@ -1,18 +1,50 @@
-1.虚拟机安装ubuntu16.04
-2.firefox中按windows平台下设置网页代理，连接互联网（按提示输入NT账号）
-3.在Ubuntu当前登陆用户的home文件夹内，按Ctrl+H显示隐藏文件 .bashrc
-        在.bashrc的最后增加两行：
-        export https_proxy=https://<username>:<password>@rb-proxy-szh.bosch.com:8080
-        export http_proxy=http://<username>:<password>@rb-proxy-szh.bosch.com:8080
-        注意:username和password中可能含有需要转义的字符，可在http://tool.chinaz.com/Tools/urlencode.aspx进行转换
-        在终端中输入 source ~/.bashrc使设置生效
-4.在/etc/apt文件夹内新建apt.conf文件(sudo gedit apt.conf)并输入两行
-        Acquire::https::proxy "https://rb-proxy-szh.bosch.com:8080/";
-        Acquire::http::proxy "http://rb-proxy-szh.bosch.com:8080/";
-        注意不要忘记分号
-5.使用图形界面打开/etc/apt中的sources.list会弹出设置界面，在其中Ubuntu software便签下选择更新源为aliyun或huaweicloud
-6.终端中输入 sudo apt-get update 更新软件列表，若显示网络错误，可重新打开终端再试
+Ubuntu基础环境的配置：
 
+        1.虚拟机安装ubuntu16.04
+        2.firefox中按windows平台下设置网页代理，连接互联网（按提示输入NT账号）
+                这一步很重要：1.可以用来验证当前的网络环境，包括代理功能是否正常
+                             2.输入NT账号获得代理的授权，实测步骤3中的NT账户授权并不起作用
+        3.在Ubuntu当前登陆用户的home文件夹内，按Ctrl+H显示隐藏文件 .bashrc
+                在.bashrc的最后增加两行：
+                export https_proxy=https://<username>:<password>@rb-proxy-szh.bosch.com:8080
+                export http_proxy=http://<username>:<password>@rb-proxy-szh.bosch.com:8080
+                注意:username和password中可能含有需要转义的字符，可在http://tool.chinaz.com/Tools/urlencode.aspx进行转换
+                在终端中输入 source ~/.bashrc使设置生效
+        4.在/etc/apt文件夹内新建apt.conf文件(sudo gedit apt.conf)并输入两行（18.04版本的Ubuntu已经有该文件）
+                Acquire::https::proxy "https://rb-proxy-szh.bosch.com:8080/";
+                Acquire::http::proxy "http://rb-proxy-szh.bosch.com:8080/";
+                注意不要忘记分号
+        5.使用图形界面打开/etc/apt中的sources.list会弹出设置界面，在其中Ubuntu software便签下选择更新源为aliyun或huaweicloud，可以加速软件的获取和更新
+        6.终端中输入 sudo apt-get update 更新软件列表，若显示网络错误，可重新打开终端再试
+        7.如果软件版本比较旧，可以执行sudo apt-get upgrade进行更新
+
+以上为Ubuntu基础环境的配置
+
+Yocto相关环境的建立：
+参考文档：《i.MX_Yocto_Project_User's_Guide》，注意其中的版本描述，是针对哪一个yocto版本已经linux内核
+本文使用的《i.MX_Yocto_Project_User's_Guide》是针对yocto 2.5和linux内核版本L4.14.78
+
+1.安装必要的软件包，可直接参考《i.MX_Yocto_Project_User's_Guide》的3.1节
+2.repo配置（guide中3.1 3.2 & 4）
+        repo其实就是git的一个封装，如果直接按guide中的配置，会因为GFW的原因连接不上，这里可以使用清华的镜像来替代
+        1.在.bashrc的最后一行：
+                export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
+                即使用清华的源进行更新，可参考https://mirrors.tuna.tsinghua.edu.cn/help/git-repo/
+        2.guide中的curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+                也可改为curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/ > ~/bin/repo
+        3.git配置可按实际情况配置
+        4.执行完repo init -u https://source.codeaurora.org/external/imx/imx-manifest -b imx-linux-sumo -m imx-4.14.78-1.0.0_ga.xml后，
+                会在~/imx-yocot-bsp文件夹中新建隐藏文件夹.repo，内部包含文件夹manifests manifests.git repo和xml文件manifest.xml
+                打开manifest.xml可以发现内部的几个链接都是git://开头的，在我们的网络环境中，无法使用git的链接协议，因此都需要改为https://
+                https://git.yoctoproject.org/git
+                https://github.com/Freescale
+                https://github.com/openembedded
+                https://github.com/OSSystems
+                https://github.com/meta-qt5
+        5.repo sync进行文件的获取，并最终在放置在~/imx-yocot-bsp/sources文件夹中
+        
+3.
+        
 
         
 
