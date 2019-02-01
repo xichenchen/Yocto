@@ -1,0 +1,13 @@
+因为开发需要使用can总线，而最新的imx-linux 4.14.78的linux并没有配置can总线(在开发板命令行执行 ifconfig -a,查看是否有can0的信息)。
+本文主要参考为《i.MX_Yocto_Project_User's_Guide》和《i.MX_Reference_Manual》
+
+1.repo sync指令会获取需要的主工具链，目前分为9大块，下载时间根据网络大概在2-3个小时
+
+2.执行指令
+  DISTRO=fsl-imx-xwayland MACHINE=imx8qxpmek source fsl-setup-release.sh -b build-xwayland
+  说明：
+  DISTRO指定了要build的image，MACHINE指定了目标硬件，source是执行后面的.sh脚本，build-xwayland是指定文件夹
+ 
+3.执行指令
+  bitbake linux-imx -c menuconfig
+  该指令是运行linux的内核配置菜单界面,但首次运行bitbake，bitbake会去parse所有的bb和conf文件并获取所有需要的tools，会花费比较长的时间。
