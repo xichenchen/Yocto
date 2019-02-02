@@ -11,3 +11,4 @@
 3.执行指令
   bitbake linux-imx -c menuconfig
   该指令是运行linux的内核配置菜单界面,但首次运行bitbake，bitbake会去parse所有的bb和conf文件并获取所有需要的tools，会花费比较长的时间。
+  ps:虚拟机内存一定要大于3G，硬盘最好按推荐的120G设置，否则bitbake会报错
